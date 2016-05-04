@@ -1,0 +1,10 @@
+nerve-center/spinalhub
+models-manager/is-sim/
+castem-organ/build/
+castem-organ/run
+models-manager/.gen/
+models-manager/gen/
+nerve-center/memory/
+organs-manager/build/
+organs-manager/run
+

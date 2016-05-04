@@ -1,0 +1,851 @@
+* 
+* F. LOUF 
+* 15/09/2015 
+* LMT Cachan 
+* 
+* ---------------------------------------------------------------------------------
+* Exemple d'illustration de la PGD espace/parametres sur un treillis à trois barres 
+* 
+* Objectif : construire la dépendance du champ de déplacement à (E1,E2,E3) 
+*            par la PGD
+* 
+* Problème traité : voir article 
+*         LOUF_CHAMPANEY_2013 dans Finite Elements in Analysis and Design
+* 
+* ---------------------------------------------------------------------------------
+* 
+* =================================================================================
+*  Parametres PGD
+* =================================================================================
+* 
+* Nombre de n-uplets dans la base finale 
+* 
+N1COUPLE = 2 ; 
+* 
+* Nombre d'itérations maximales du point fixe 
+* 
+N1PF = 50 ; 
+* 
+* Critère d'arrêt du point fixe 
+* 
+EPS0 = 1e-07 ; 
+* 
+* =================================================================================
+*                   DEFINITION DE LA GEOMETRIE ET DU MODELE 
+* ================================================================================= 
+* 
+* Options Cast3M : pas d'écho après les commandes, dimension 2
+* 
+OPTI DIME 2 ;
+OPTI ELEM QUA4 ;
+* OPTI PLAN DEFO ;
+* 
+* Parametres du solide 1
+* 
+L1 = 60 ;
+H1 = 20 ;
+* 
+* Parametres du solide 2
+* 
+L2 = 30 ;
+X2 = 10 ;
+H2 = 30 ;
+E2 = 5 ; 
+R2 = 10 ;
+* 
+* Parametres du solide 3
+* 
+H3 = 40 ;
+X3 = 40 ;
+E3 = 5 ; 
+* 
+* Taille du maillage
+* 
+DEN1 = 0.75 ;
+DEN2 = DEN1*(R2-E2)/R2 ;
+* 
+* Geometrie du solide 1 
+* 
+P11 = 0. 0. ;
+P21 = L1 0. ;
+P31 = L1 H1 ;
+P41 = (L2+X2) H1 ;
+P51 = X2  H1 ;
+P61 = 0. H1  ;
+* 
+L121 = DROI DINI DEN1 DFIN DEN1 P11 P21 ;
+L231 = DROI DINI DEN1 DFIN DEN1  P21 P31 ;
+L341 = DROI DINI DEN1 DFIN DEN1  P31 P41 ;
+L451 = DROI DINI DEN1 DFIN DEN1  P41 P51 ;
+L561 = DROI DINI DEN1 DFIN DEN1  P51 P61 ;
+L611 = DROI DINI DEN1 DFIN DEN1  P61 P11 ; 
+* 
+Z1 = DALL L121 L231 (L341 ET L451 ET L561) L611 ;
+Z1 = Z1 COUL BLEU ;
+* 
+* Geometrie du solide 2
+* 
+P12 = X2 H1 ;
+P22 = (X2+L2) H1 ;
+O2  = (X2+L2) (H1+R2) ;
+P32 = (X2+L2+R2) (H1+R2) ;
+P42 = (X2+L2+R2) (H1+R2+H2) ;
+P52 = (X2+L2+R2-E2) (H1+R2+H2) ;
+P62 = (X2+L2+R2-E2) (H1+R2) ;
+P72 = (X2+L2) (H1+E2) ;
+P82 = X2 (H1+E2) ;
+* 
+L122 = DROI DINI DEN1 DFIN DEN1  P12 P22 ;
+L232 = CERC DINI DEN1 DFIN DEN1  P22 O2 P32 ;
+L342 = DROI DINI DEN1 DFIN DEN1  P32 P42 ;
+L452 = DROI DINI DEN1 DFIN DEN1  P42 P52 ;
+L562 = DROI DINI DEN1 DFIN DEN1  P52 P62 ;
+L672 = CERC DINI DEN2 DFIN DEN2  P62 O2 P72 ;
+L782 = DROI DINI DEN1 DFIN DEN1  P72 P82 ;
+L812 = DROI DINI DEN1 DFIN DEN1  P82 P12 ;
+* 
+L272 = DROI DINI DEN1 DFIN DEN1  P22 P72 ;
+L362 = DROI DINI DEN1 DFIN DEN1  P32 P62 ; 
+* 
+Z21 = DALL L122 L272 L782 L812 ;
+Z22 = DALL L232 L362 L672 L272 ;
+Z23 = DALL L342 L452 L562 L362 ;
+Z2 = (Z21 ET Z22 ET Z23) ;
+Z2 = Z2 COUL ROUG ;
+*  
+* Geometrie du solide 3 
+* 
+P13 = (X2+L2+R2-E2) (H1+R2)  ;
+P23 = (X2+L2+R2-E2) (H1+R2+H2) ;
+P33 = (X2+L2+R2-E2) (H1+R2+H3) ;
+P43 = (X2+L2+R2-E2-E3) (H1+R2+H3) ;
+P53 = (X2+L2+R2-E2-E3) (H1+R2) ;
+* 
+L123 = DROI DINI DEN1 DFIN DEN1  P13 P23 ;
+L233 = DROI DINI DEN1 DFIN DEN1  P23 P33 ;
+L343 = DROI DINI DEN1 DFIN DEN1  P33 P43 ;
+L453 = DROI DINI DEN1 DFIN DEN1  P43 P53 ;
+L513 = DROI DINI DEN1 DFIN DEN1  P53 P13 ;
+* 
+Z3 = DALL (L123 ET L233) L343 L453 L513 ;
+Z3 = Z3 COUL TURQ ;    
+* 
+MAI1 = Z1 ET Z2 ET Z3 ;
+* 
+OPTI 'SORT' 'Maillage_Solide1.avs';
+SORT 'AVS' Z1 ; 
+*
+OPTI 'SORT' 'Maillage_Solide2.avs';
+SORT 'AVS' Z2 ; 
+*
+OPTI 'SORT' 'Maillage_Solide3.avs';
+SORT 'AVS' Z3 ; 
+*    
+* Joint entre 1 et 2 
+* 
+Z4 = RACC 0.001 L451 (INVE L122) ;
+Z5 = RACC 0.001 L562 (INVE L123) ;
+* 
+* Modeles et materiaux volume 1 
+* 
+YO1 = 200000 ;
+NU1 = 0.3 ;
+MOD1 = MODE Z1 MECANIQUE ELASTIQUE ISOTROPE ;
+MAT1 = MATE MOD1 YOUNG YO1 NU NU1 ;
+RIG1 = RIGI MOD1 MAT1 ;
+* 
+* Modeles et materiaux volume 2
+* 
+YO2 = 200000 ;
+NU2 = 0.3 ;
+MOD2 = MODE Z2 MECANIQUE ELASTIQUE ISOTROPE ;
+MAT2 = MATE MOD2 YOUNG YO2 NU NU2 ;
+RIG2 = RIGI MOD2 MAT2 ;
+* 
+* Modeles et materiaux volume 3
+* 
+YO3 = 200000 ;
+NU3 = 0.3 ;
+MOD3 = MODE Z3 MECANIQUE ELASTIQUE ISOTROPE ;
+MAT3 = MATE MOD3 YOUNG YO3 NU NU3 ;
+RIG3 = RIGI MOD3 MAT3 ;
+* 
+* Modeles et matériaux des colles 
+* 
+EP4 = 0.3  ;
+YO4 = 5.E2 ;
+NU4 = 0.45  ; 
+KN4 = YO4/EP4 ;
+KT4 = YO4/(2.*(1+NU4)*EP4) ;
+* 
+MOD4 = MODE Z4 MECANIQUE ELASTIQUE JOI2 ;
+MAT4 = MATE MOD4 KN KN4 KS KT4 ;
+RIG4 = RIGI MOD4 MAT4 ;
+* 
+EP5 = 0.3  ;
+YO5 = 1.E3 ;
+NU5 = 0.45  ; 
+KN5 = YO5/EP5 ;
+KT5 = YO5/(2.*(1+NU5)*EP5) ;
+* 
+MOD5 = MODE Z5 MECANIQUE ELASTIQUE JOI2 ;
+MAT5 = MATE MOD5 KN KN5 KS KT5 ;
+RIG5 = RIGI MOD5 MAT5 ;
+* 
+BLO0 = (BLOQ 'UY' L121) ET 
+       (BLOQ 'UX' (L231 ET L611)) ; 
+* 
+FOR0 = PRES 'MASS' MOD3 (0-50) L343 ;
+* 
+* =================================================================================
+*                   MISE EN DONNEE SOUS LA FORME ADAPTEE 
+* ================================================================================= 
+* 
+SS1 = TABLE ;
+* 
+* Premiere sous structure : 
+* 
+SS1 . 1 = TABLE ;
+SS1 . 1 . 'K'   = RIG1 ;
+SS1 . 1 . 'KMIN' = 0.9 ;
+SS1 . 1 . 'KMAX' = 1.1 ;
+SS1 . 1 . 'NVAL' = 20 ;
+* 
+* Deuxieme sous structure :  
+* 
+SS1 . 2 = TABLE ;
+SS1 . 2 . 'K'  = RIG2  ;
+SS1 . 2 . 'KMIN' = 0.9 ;
+SS1 . 2 . 'KMAX' = 1.1 ;
+SS1 . 2 . 'NVAL' = 20 ;
+* 
+* Troisieme sous structure : 
+* 
+SS1 . 3 = TABLE ;
+SS1 . 3 . 'K'  = RIG3  ;
+SS1 . 3 . 'KMIN' = 0.9 ;
+SS1 . 3 . 'KMAX' = 1.1 ;
+SS1 . 3 . 'NVAL' = 20 ;
+* 
+* Troisieme sous structure : 
+* 
+SS1 . 4 = TABLE ;
+SS1 . 4 . 'K'  = RIG4  ;
+SS1 . 4 . 'KMIN' = 0.9 ;
+SS1 . 4 . 'KMAX' = 1.1 ;
+SS1 . 4 . 'NVAL' = 20 ;
+* 
+* Troisieme sous structure : 
+* 
+SS1 . 5 = TABLE ;
+SS1 . 5 . 'K'  = RIG5  ;
+SS1 . 5 . 'KMIN' = 0.9 ;
+SS1 . 5 . 'KMAX' = 1.1 ;
+SS1 . 5 . 'NVAL' = 20 ;
+* 
+* Conditions aux limites
+* 
+CL1 = TABLE ;
+CL1 . 'CU' = BLO0 ;
+CL1 . 'CF' = FOR0 ;
+* 
+* Nombre de sous-domaine à parametre uniforme 
+* 
+N1S = DIME SS1 ;
+* 
+* Recuperation des différentes inconnues primales et duales 
+* 
+RIG1TOT = SS1 . 1 . 'K' ;
+SI (N1S > 1) ;
+  REPE BCL1S (N1S-1) ;
+    RIG1TOT = RIG1TOT ET SS1 . (&BCL1S+1) . 'K' ;
+  FIN BCL1S ;
+FINSI ;
+* 
+L1U = EXTR RIG1TOT 'COMP'        ;
+L1F = EXTR RIG1TOT 'COMP' 'DUAL' ;
+* 
+* =================================================================================
+*                         CALCUL DU MODELE PGD 
+* ================================================================================= 
+*  
+* Initialisation du temps de calcul
+* 
+TEMPS 'ZERO' ;
+* 
+* Liste de mot pour les matrices de masse
+* 
+L1T = MOTS 'T'  ;
+L1Q = MOTS 'Q'  ;
+* 
+* Création d'un maillage de l'espace des parametres
+* 1 maillage 1D par paramètre
+* 
+REPE BCL1J N1S ;
+* 
+* Maillage support du parametre Ki (associé à E)
+* 
+  K1MIN = SS1 . &BCL1J . 'KMIN' ;
+  K1MAX = SS1 . &BCL1J . 'KMAX' ;
+  N1ELE = SS1 . &BCL1J . 'NVAL' ;
+* 
+  SI ((VALE DIME) EGA 2) ;
+    SUPP1 = DROI N1ELE (K1MIN 0.   ) (K1MAX 0.   ) ;  
+  SINON ;
+    SUPP1 = DROI N1ELE (K1MIN 0. 0.) (K1MAX 0. 0.) ;  
+  FINSI ;
+  SS1 . &BCL1J . 'SUPP' = SUPP1 ;
+* 
+* Creation de la matrice de masse associée au support
+* 
+  MOD1 = MODE SUPP1 THERMIQUE ISOTROPE BARRE ;
+  MAT1 = MATE MOD1 'C' 1. 'RHO' 1. 'SECT' 1. ;
+  MAS1 = CAPA MOD1 MAT1 ;
+  SS1 . &BCL1J . 'MAS1' = MAS1 ;
+* 
+* Initialisation des lambda
+* 
+  CL1K = COOR 1 SUPP1 ;
+  SS1 . &BCL1J . 'LAMB' = CL1K NOMC 'T' ;
+  SS1 . &BCL1J . 'LAM0' = CL1K NOMC 'T' ;
+* 
+* Calcul de la matrice de masse avec propriete de masse linéaire
+* On prend un x lineaire par élément
+* 
+  N1E = NBEL SUPP1 ;
+  REPE BCL1E N1E ;
+* 
+    EL1 = ELEM &BCL1E SUPP1 ;
+    X1MIN = COOR 1 (EL1 POIN 1) ;
+    X1MAX = COOR 1 (EL1 POIN 2) ;
+    M1E11 = (X1MAX**2)+(2*X1MIN*X1MAX)-(3*(X1MIN**2)) ;
+    M1E12 = (X1MAX**2)-(X1MIN**2) ;
+    M1E22 = (3*(X1MAX**2))-(2*X1MIN*X1MAX)-(X1MIN**2) ;
+    L1M = PROG M1E11 M1E12                  
+               M1E12 M1E22 ;
+    M1E = MANU 'RIGIDITE' EL1 L1T 'DUAL' L1Q L1M ;
+    M1E = M1E/12. ;
+    SI (&BCL1E EGA 1) ;
+      M1TOT = M1E ;
+    SINON ;
+      M1TOT = M1TOT ET M1E ;
+    FINSI ;
+*   
+  FIN BCL1E ; 
+* 
+  SS1 . &BCL1J . 'MASK' = M1TOT ;
+* 
+* Champ de 1 sur le support de lambda 
+* 
+  UNI1 = MANU CHPO SUPP1 1 'T' 1. NATURE DISCRET ;
+  SS1 . &BCL1J . 'CHP1' = UNI1 ;   
+* 
+FIN BCL1J ; 
+* 
+* Boucle (point fixe) permettant de construire le premier jeu Lambda - Psi 
+* On fixe le nombre d'iterations maxi pour le moment
+* 
+BAS1 = TABLE ;
+BAS1 . 0 = TABLE ;
+BAS1 . 0 . 'LAM' = TABLE ;
+* 
+* List contenant les itérations du PF nécessaires pour converger 
+* 
+PF1CONV = PROG ;
+* 
+REPE BCL1PF N1PF ;
+* 
+* --------> Calcul du champ Psi 0
+* 
+* On calcule le produit des lambda_mj . Mj . lambda_mj (pour RIG0TOT)
+* On calcule le produit des lambda_mj . Mj . 1 (pour FOR0TOT)
+* 
+  PRD1 = 1. ;
+  PRD2 = 1. ;
+* 
+  REPE BCL1J N1S ;
+*    
+    LAM0MJ = SS1 . &BCL1J . 'LAMB' ;
+    MAS11J = SS1 . &BCL1J . 'MAS1' ;
+    UNI1   = SS1 . &BCL1J . 'CHP1' ;
+* 
+    PRD1 = PRD1*(XTMX LAM0MJ MAS11J) ;
+* 
+    PRD2 = PRD2*(YTMX UNI1 LAM0MJ MAS11J) ;
+* 
+  FIN BCL1J ; 
+* 
+* Assemblage de la rigidite
+* 
+  RIG0TOT = CL1 . 'CU' ;
+* 
+  REPE BCL1I N1S ;
+*   
+    LAM0MI = SS1 . &BCL1I . 'LAMB' ;
+    MAS11I = SS1 . &BCL1I . 'MAS1' ;
+    MAS1KI = SS1 . &BCL1I . 'MASK' ; 
+    RIG1I  = SS1 . &BCL1I . 'K'    ;
+* 
+    RIG0TOT = RIG0TOT  ET
+    (PRD1*(XTMX LAM0MI MAS1KI)*RIG1I/(XTMX LAM0MI MAS11I)) ;
+* 
+  FIN BCL1I ;
+* 
+* Second membre
+* 
+  FOR0TOT = (CL1 . 'CF')*PRD2 ;
+* 
+* Resolution du système donnant le champ PSI
+* 
+  PSI0 = ENLE (RESO RIG0TOT FOR0TOT) 'LX' ;
+* 
+* --------> Calcul des champs Lambda_n
+* 
+  FPSI0 = XTY CL1 . 'CF' PSI0 L1F L1U ;
+*     
+  REPE BCL1K N1S ;
+* 
+    LAM0MK = SS1 . &BCL1K . 'LAMB' ;
+    MAS11K = SS1 . &BCL1K . 'MAS1' ;
+    MAS1KK = SS1 . &BCL1K . 'MASK' ; 
+    UNI1K  = SS1 . &BCL1K . 'CHP1' ;  
+    RIG1K  = SS1 . &BCL1K . 'K'    ;  
+* 
+* On calcule le produit des lambda_mj . Mj . lambda_mj (pour RIG0TOT)
+* (a chaque fois car les lambda changent dans la boucle sur k)
+* 
+    PRD3 = 1. ;
+*    
+    REPE BCL1J N1S ;
+* 
+      LAM0MJ = SS1 . &BCL1J . 'LAMB' ;
+      MAS11J = SS1 . &BCL1J . 'MAS1' ;
+      PRD3 = PRD3*(XTMX LAM0MJ MAS11J) ;
+* 
+    FIN BCL1J ;
+* 
+    RIG0TOT = PRD3*(XTMX PSI0 RIG1K)*MAS1KK/
+                   (XTMX LAM0MK MAS11K) ;
+* 
+    REPE BCL1I N1S ;
+* 
+      SI (&BCL1K NEG &BCL1I) ; 
+* 
+        LAM0MI = SS1 . &BCL1I . 'LAMB' ;
+        MAS11I = SS1 . &BCL1I . 'MAS1' ;
+        MAS1KI = SS1 . &BCL1I . 'MASK' ;  
+        RIG1I  = SS1 . &BCL1I . 'K'    ;     
+* 
+        RIG0TOT = RIG0TOT ET 
+       (PRD3*(XTMX PSI0 RIG1I)*
+             (XTMX LAM0MI MAS1KI)*MAS11K/
+            ((XTMX LAM0MI MAS11I)*
+             (XTMX LAM0MK MAS11K))) ;
+*  
+      FINSI ;
+*    
+    FIN BCL1I ;
+* 
+* Second membre
+* 
+    FOR0TOT = (FPSI0*PRD2/(YTMX UNI1K LAM0MK MAS11K))*MAS11K*UNI1K ;
+*   
+* Resolution du systeme donnant le champ lambda_n
+* 
+    LAM0MK = NOMC 'T' (EXCO 'T' (RESO RIG0TOT FOR0TOT)) ; 
+* 
+* Mise à jour des produits pour ne pas tout recalculer
+* 
+    PRD2 = PRD2*(YTMX UNI1K LAM0MK MAS11K)/
+                (YTMX UNI1K SS1 . &BCL1K . 'LAMB'  MAS11K) ;     
+* 
+    PRD3 = PRD3*(XTMX LAM0MK MAS11K)/ 
+                (XTMX SS1 . &BCL1K . 'LAMB'  MAS11K) ;
+* 
+    SS1 . &BCL1K. 'LAMB' = LAM0MK ;
+*                   
+  FIN BCL1K ;
+* 
+* Calcul de l'energie du mode pour test de convergence du point fixe 
+* 
+  PRD40 = 1. ;
+  REPE BCL1K N1S ;
+*  
+    LAM1P = SS1 . &BCL1K . 'LAMB'  ;      
+    PRD40 = PRD40*(XTMX LAM1P SS1 . &BCL1K . 'MAS1') ;
+* 
+  FIN BCL1K ; 
+* 
+  ENE1 = 0. ;
+  REPE BCL1K N1S ;
+    LAM1P = SS1 . &BCL1K . 'LAMB'  ; 
+    COE1 = (XTMX LAM1P SS1 . &BCL1K . 'MASK')/
+           (XTMX LAM1P SS1 . &BCL1K . 'MAS1') ;
+    ENE1 = ENE1+ 
+        ((XTMX PSI0 SS1 . &BCL1K . 'K')*PRD40*COE1) ; 
+  FIN BCL1K ;
+* 
+  SI (&BCL1PF > 1) ;
+    SI ( ((ENE1-ENE10)/ENE10)  < EPS0 ) ;
+      MESS 'Convergence atteinte, iteration : ' &BCL1PF ;
+      PF1CONV = PF1CONV ET (PROG &BCL1PF) ; 
+      MESS 'Energie a convergence : ' ENE1 ; 
+      QUIT BCL1PF ;
+    FINSI ;
+  FINSI ;
+  ENE10 = ENE1 ;
+* 
+FIN BCL1PF ;
+* 
+*  Sauvegarde du couple dans la base à convergence
+* 
+BAS1 . 0 . 'PSI' = PSI0 ;
+REPE BCL1I N1S ;  
+  BAS1 . 0 . 'LAM' . &BCL1I = SS1 . &BCL1I. 'LAMB' ;
+FIN BCL1I ;
+* 
+* Trace du champ psi calculé
+* 
+DEF1 = DEFO PSI0 MAI1 ;
+N0PSI = (((EXCO 'UX' PSI0)**2)+ 
+        ((EXCO 'UY' PSI0)**2))**0.5 ;
+* 
+* On construit d'autres couples que l'on ajoute dans la base
+* 
+SI (N1COUPLE > 1) ;
+* 
+REPE BCL1BAS (N1COUPLE-1) ;
+* 
+* Initialisation des lambda
+* 
+  REPE BCL1I N1S ;
+    SS1 . &BCL1I . 'LAMB' = SS1 . &BCL1I . 'LAM0' ; 
+  FIN BCL1I ;
+* 
+* Dimension de la base actuelle
+*   
+  N1C = DIME BAS1 ;
+* 
+* Declaration des nouveaux champs dans la table
+*  
+  BAS1 . &BCL1BAS = TABLE ;
+  BAS1 . &BCL1BAS . 'LAM' = TABLE ;
+* 
+  REPE BCL1PF N1PF ;
+* 
+* --------> Calcul du champ Psi 0
+* 
+* On calcule le produit des lambda_mj . Mj . lambda_mj (pour RIG0TOT)
+* On calcule le produit des lambda_mj . Mj . 1 (pour FOR0TOT)
+* 
+    PRD1 = 1. ;
+    PRD2 = 1. ;
+* 
+    REPE BCL1J N1S ;
+*    
+      LAM0MJ = SS1 . &BCL1J . 'LAMB' ;
+      MAS11J = SS1 . &BCL1J . 'MAS1' ;
+      UNI1J  = SS1 . &BCL1J . 'CHP1' ;
+* 
+      PRD1 = PRD1*(XTMX LAM0MJ MAS11J) ;
+* 
+      PRD2 = PRD2*(YTMX UNI1J LAM0MJ MAS11J) ;
+* 
+    FIN BCL1J ; 
+* 
+* Assemblage de la rigidite
+* 
+    RIG0TOT = CL1 . 'CU' ;
+* 
+    REPE BCL1I N1S ;
+*   
+      LAM0MI = SS1 . &BCL1I . 'LAMB' ;
+      MAS11I = SS1 . &BCL1I . 'MAS1' ;
+      MAS1KI = SS1 . &BCL1I . 'MASK' ; 
+      RIG1I  = SS1 . &BCL1I . 'K'    ;
+*   
+      RIG0TOT = RIG0TOT  ET
+    (PRD1*(XTMX LAM0MI MAS1KI)*RIG1I/(XTMX LAM0MI MAS11I)) ;
+* 
+    FIN BCL1I ;
+* 
+* Second membre
+* 
+    FOR0TOT = (CL1 . 'CF')*PRD2 ;
+* 
+    REPE BCL1P N1C ;  
+* 
+* Calcul des produits lambda_pj Mj lambda_mj
+* 
+      PRD4 = 1. ;
+      REPE BCL1J N1S ;
+        LAM0PJ = BAS1 . (&BCL1P-1) . 'LAM' . &BCL1J ;
+        LAM0MJ = SS1 . &BCL1J . 'LAMB'  ;
+        MAS11J = SS1 . &BCL1J . 'MAS1' ;
+        PRD4 = PRD4*(YTMX LAM0MJ LAM0PJ MAS11J) ;
+      FIN BCL1J ;
+* 
+* Champ Psi_p
+* 
+      PSI0P = BAS1 . (&BCL1P-1) . 'PSI' ;
+* 
+      REPE BCL1I N1S ; 
+* 
+        LAM0PI = BAS1 . (&BCL1P-1) . 'LAM' . &BCL1I ;
+        LAM0MI = SS1 . &BCL1I . 'LAMB'  ;
+        MAS11I = SS1 . &BCL1I . 'MAS1' ;     
+        MAS1KI = SS1 . &BCL1I . 'MASK' ;        
+        RIG1I  = SS1 . &BCL1I . 'K'    ;  
+        FOR0TOT = FOR0TOT - 
+     ((PRD4*(YTMX LAM0MI LAM0PI MAS1KI)/
+      (YTMX LAM0MI LAM0PI MAS11I))*RIG1I*PSI0P) ;
+* 
+      FIN BCL1I ;         
+*     
+    FIN BCL1P ;    
+* 
+* Resolution du système donnant le champ PSI
+* 
+    PSI0 = ENLE (RESO RIG0TOT FOR0TOT) 'LX' ;
+    DEF1 = DEFO PSI0 MAI1 ;
+    N0PSI = (((EXCO 'UX' PSI0)**2)+ 
+             ((EXCO 'UY' PSI0)**2))**0.5 ;
+* 
+* Orthogonalisation / précédents PSI0 dans la base
+* 
+    REPE BCL1P N1C ; 
+* 
+      PSI0P = BAS1 . (&BCL1P-1) . 'PSI' ;
+      PSI0 = PSI0 - ((XTY PSI0 PSI0P L1U L1U)*PSI0)  ;    
+*     
+    FIN BCL1P ; 
+* 
+* --------> Calcul des champs Lambda_k
+* 
+    FPSI0 = XTY CL1 . 'CF' PSI0 L1F L1U ;
+*     
+    REPE BCL1K N1S ;
+*     
+      LAM0MK = SS1 . &BCL1K . 'LAMB' ;
+      MAS11K = SS1 . &BCL1K . 'MAS1' ;
+      MAS1KK = SS1 . &BCL1K . 'MASK' ; 
+      UNI1K  = SS1 . &BCL1K . 'CHP1' ;  
+      RIG1K  = SS1 . &BCL1K . 'K'    ; 
+* 
+      PRD3 = 1. ;
+      REPE BCL1J N1S ; 
+        LAM0MJ = SS1 . &BCL1J . 'LAMB' ;
+        MAS11J = SS1 . &BCL1J . 'MAS1' ;
+        PRD3 = PRD3*(XTMX LAM0MJ MAS11J) ;
+      FIN BCL1J ;
+* 
+      RIG0TOT = PRD3*(XTMX PSI0 RIG1K)*MAS1KK/
+                     (XTMX LAM0MK MAS11K) ;
+* 
+      REPE BCL1I N1S ;
+* 
+        SI (&BCL1K NEG &BCL1I) ; 
+* 
+          LAM0MI = SS1 . &BCL1I . 'LAMB' ;
+          MAS11I = SS1 . &BCL1I . 'MAS1' ;
+          MAS1KI = SS1 . &BCL1I . 'MASK' ;  
+          RIG1I  = SS1 . &BCL1I . 'K'    ;     
+* 
+          RIG0TOT = RIG0TOT ET 
+       (PRD3*(XTMX PSI0 RIG1I)*
+           (XTMX LAM0MI MAS1KI)*MAS11K/
+           ((XTMX LAM0MI MAS11I)*
+            (XTMX LAM0MK MAS11K))) ; 
+* 
+        FINSI ;
+*       
+      FIN BCL1I ;
+* 
+* Second membre
+* 
+      FOR0TOT = (FPSI0*PRD2/(YTMX UNI1K LAM0MK MAS11K))*
+                 MAS11K*UNI1K ;
+* 
+      REPE BCL1P N1C ;       
+* 
+* Calcul des produits lambda_pj Mj lambda_mj
+* (a chaque fois car les lambda changent dans la boucle sur k)
+* 
+        PRD4 = 1. ;
+        REPE BCL1J N1S ;
+          LAM0PJ = BAS1 . (&BCL1P-1) . 'LAM' . &BCL1J ;
+          LAM0MJ = SS1 . &BCL1J . 'LAMB' ;
+          MAS11J = SS1 . &BCL1J . 'MAS1' ;
+          PRD4 = PRD4*(YTMX LAM0MJ LAM0PJ MAS11J) ;
+        FIN BCL1J ;
+* 
+* Champ Psi_p
+* 
+        PSI0P = BAS1 . (&BCL1P-1) . 'PSI' ;
+* 
+* Champ Lambda_pk
+* 
+        LAM0PK = BAS1 . (&BCL1P-1) . 'LAM' . &BCL1K ;        
+* 
+        REPE BCL1I N1S ; 
+* 
+          SI (&BCL1I NEG &BCL1K) ;
+            LAM0PI = BAS1 . (&BCL1P-1) . 'LAM' . &BCL1I ;
+            LAM0MI = SS1 . &BCL1I . 'LAMB'  ;
+            MAS11I = SS1 . &BCL1I . 'MAS1' ;     
+            MAS1KI = SS1 . &BCL1I . 'MASK' ;            
+            RIG1I  = SS1 . &BCL1I . 'K'    ;  
+            FOR0TOT = FOR0TOT - 
+        (PRD4*(YTMX PSI0 PSI0P RIG1I)*
+              (YTMX LAM0PI LAM0MI MAS1KI)/
+             ((YTMX LAM0PK LAM0MK MAS11K)*
+              (YTMX LAM0PI LAM0MI MAS11I))*MAS11K*LAM0PK) ;
+          FINSI ;       
+* 
+        FIN BCL1I ;
+* 
+        FOR0TOT = FOR0TOT -
+        ((PRD4*(YTMX PSI0 PSI0P RIG1K)/
+              (YTMX LAM0PK LAM0MK MAS11K))*MAS1KK*LAM0PK) ; 
+*     
+      FIN BCL1P ;
+*   
+* Resolution du systeme donnant le champ lambda_k
+* 
+      LAM0MK = NOMC 'T' (EXCO 'T' (RESO RIG0TOT FOR0TOT)) ;
+* 
+* Mise à jour des produits pour ne pas tout recalculer
+* 
+      PRD2 = PRD2*(YTMX UNI1K LAM0MK MAS11K)/
+                  (YTMX UNI1K SS1 . &BCL1K . 'LAMB'  MAS11K) ;
+*      
+* Stockage du lambda_k trouve a cette iteration du point fixe
+* 
+      SS1 . &BCL1K . 'LAMB' = LAM0MK ;  
+*   
+    FIN BCL1K ;
+* 
+* Calcul de l'energie du mode pour test de convergence du point fixe 
+* 
+    PRD40 = 1. ;
+    REPE BCL1K N1S ;
+*  
+      LAM1P = SS1 . &BCL1K . 'LAMB'  ;      
+      PRD40 = PRD40*(XTMX LAM1P SS1 . &BCL1K . 'MAS1') ;
+* 
+    FIN BCL1K ; 
+* 
+    ENE1 = 0. ;
+    REPE BCL1K N1S ;
+      LAM1P = SS1 . &BCL1K . 'LAMB'  ; 
+      COE1 = (XTMX LAM1P SS1 . &BCL1K . 'MASK')/
+             (XTMX LAM1P SS1 . &BCL1K . 'MAS1') ;
+      ENE1 = ENE1+ 
+          ((XTMX PSI0 SS1 . &BCL1K . 'K')*PRD40*COE1) ; 
+    FIN BCL1K ;
+* 
+    SI (&BCL1PF > 1) ;
+      SI ( ((ENE1-ENE10)/ENE10)  < EPS0 ) ;
+        MESS 'Convergence atteinte, iteration : ' &BCL1PF ;
+        PF1CONV = PF1CONV ET (PROG &BCL1PF) ; 
+        MESS 'Energie a convergence : ' ENE1 ; 
+        QUIT BCL1PF ;
+      FINSI ;
+    FINSI ;
+    ENE10 = ENE1 ;
+* 
+  FIN BCL1PF ;
+* 
+*  Sauvegarde du couple dans la base à convergence
+* 
+  BAS1 . &BCL1BAS . 'PSI' = PSI0 ;
+  REPE BCL1I N1S ;  
+    BAS1 . &BCL1BAS . 'LAM' . &BCL1I = SS1 . &BCL1I. 'LAMB' ;
+  FIN BCL1I ;
+* 
+* Trace du champ psi calculé
+* 
+  DEF1 = DEFO PSI0 MAI1 ;
+  N0PSI = (((EXCO 'UX' PSI0)**2)+ 
+           ((EXCO 'UY' PSI0)**2))**0.5 ;
+* 
+FIN BCL1BAS ;
+* 
+FINSI ; 
+* 
+TPS2 = (TEMPS 'NOEC')/1000.; 
+* 
+* =================================================================================
+*        IMPRESSION DES CHAMPS PGD (ESPACE + PARAMETRE) DANS UN FICHIER TEXTE         
+* ================================================================================= 
+*  
+* Export du maillage en AVS 
+* 
+OPTI 'SORT' 'Maillage_LiaisonCollee.avs';
+SORT 'AVS' MAI1 ; 
+*  
+* On change le type de maillage pour boucler sur les points 
+* 
+MAI0 = MAI1 CHAN 'POI1' ; 
+* 
+* On sort les modes pour traitement ensuite ailleurs
+* 
+OPTI ECHO 0 ;
+OPTI IMPR 'Sortie_PGD_LiaisonCollee.txt' ;
+MESS 'DIM' (VALE DIME) ; 
+* 
+MESS 'N1C' N1COUPLE ;
+MESS 'N1S' N1S ;
+MESS 'N1P' (NBEL MAI0) ;
+*
+* On sort la correspondance noeuds - position (X,Y)  
+MESS 'POINTS' ;
+* 
+REPE BCL1M (NBEL MAI0) ;
+* 
+    X1 = COOR 1 (MAI0 POIN &BCL1M) ; 
+    Y1 = COOR 2 (MAI0 POIN &BCL1M) ;
+    MESS &BCL1M X1 Y1 ;
+* 
+FIN BCL1M ;
+MESS 'FINPOINTS' ;
+* 
+MESS 'NBRANDOMS' ;
+* 
+REPE BCL1S N1S ;
+  MESS SS1 . &BCL1S . 'NVAL' ;
+FIN BCL1S ;
+MESS 'FINNBRANDOMS' ;
+*   
+REPE BCL1C N1COUPLE ;
+* 
+* On sort la fonction d'espace point par point 
+  MESS 'PSI' ;
+* 
+  REPE BCL1M (NBEL MAI0) ;
+    U10 = REDU BAS1 . (&BCL1C-1) . 'PSI' (MAI0 POIN &BCL1M) ;
+    U10X = MAXI (EXCO 'UX' U10) ; 
+    U10Y = MAXI (EXCO 'UY' U10) ;
+    MESS U10X U10Y ;
+  FIN BCL1M ;
+  MESS 'FINPSI' ;
+* 
+* On sort chaque fonction des paramètres point par point 
+  MESS 'LAMBDA' ;
+* 
+  REPE BCL1S N1S ; 
+     LAM1 = BAS1 . (&BCL1C-1) . 'LAM' . &BCL1S ;
+     SUPP1 = SS1 . &BCL1S . 'SUPP' ;
+     REPE BCL1N (NBNO SS1 . &BCL1S . 'SUPP') ;
+       MESS (MAXI (REDU LAM1 (SUPP1 POIN &BCL1N))) ;
+     FIN BCL1N ;
+  FIN BCL1S ;
+  MESS 'FINLAMBDA' ;
+* 
+FIN BCL1C ;
+*  
+OPTI IMPR 'Temp.txt' ; 
+* 
+FIN ; 
+FIN ; 
+    
