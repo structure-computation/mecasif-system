@@ -8,7 +8,9 @@ int main( int argc, char **argv  )
     QString IP = "127.0.0.1";
     QHostAddress adress( IP );
     QString port = "8890";
-    SpinalCore* sc = new SpinalCore( adress, port.toInt() );
+    qint32 userid = 1657;
+    QString password = "4YCSeYUzsDG8XSrjqXgkDPrdmJ3fQqHs";
+    SpinalCore* sc = new SpinalCore( adress, port.toInt(), userid, password );
     
     //id du model à traiter
     quint64 model_id = atoi(argv[1]);   

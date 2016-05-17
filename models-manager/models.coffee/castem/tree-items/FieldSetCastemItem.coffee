@@ -22,14 +22,6 @@ class FieldSetCastemItem extends TreeItem_Automatic
             _old_time_step : -1
             time : -1
             
-        
-    display_suppl_context_actions: ( context_action )  ->
-        context_action.push
-            txt: "info"
-            ico: "img/info.png"
-            fun: ( evt, app ) =>
-                for data in @visualization.color_by.lst[0].data._data
-                    console.log data.pos.get()
    
     accept_child: ( ch ) ->
         false

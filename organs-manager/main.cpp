@@ -11,8 +11,10 @@ int main( ) {
     QString IP = "127.0.0.1";
     QHostAddress adress( IP );
     QString port = "8890";
-    SpinalCore* sc = new SpinalCore( adress, port.toInt() );
-
+    qint32 userid = 1657;
+    QString password = "4YCSeYUzsDG8XSrjqXgkDPrdmJ3fQqHs";
+    SpinalCore* sc = new SpinalCore( adress, port.toInt(), userid, password );
+    
     // type d'item observé
     sc->load_type( "CastemTrussPGDItem" ); 
     sc->load_type( "Castem2DPGDItem" ); 
