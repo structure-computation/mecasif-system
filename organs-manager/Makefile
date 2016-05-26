@@ -6,13 +6,13 @@ all:
 	cd build/; \
 	qmake ../; \
 	make; \
-	cd ../; \
-	make start; \
+# 	cd ../; \
+# 	make start; \
 
 start:
 	### Running ### \
 	./run; \
-	sleep 3; \
+	sleep 0.5; \
 	make start; \
 
 clean:

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+        <meta charset="utf-8" />   
+        <title>MECASIF</title> 
+        <meta name="MECASIF" content="MECASIF HomePage">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <link rel="icon" type="image/png" href="img/favicone.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>   
+        
+        <!-- ================== CSS for BOOTSTRAP ================== -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link href="coloradmin-assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/css/animate.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/css/style.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/css/style-responsive.min.css" rel="stylesheet" />
+        <link href="coloradmin-assets/css/theme/blue.css" rel="stylesheet" id="theme" />
+        
+        <!-- ================== CSS for anchor padding ================== -->
+        <link href="coloradmin-assets/css/anchor-padding.css" rel="stylesheet" />
+</head>
+
+<body>
+        <!-- begin #page-loader -->
+        <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+        <!-- end #page-loader -->
+        
+        <!-- begin #page-container -->
+        <div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed page-with-top-menu" style="padding-top: 54px;">
+        
+        
+                <!-- ================== PAGE HEADER ================== -->
+                <div id="header" class="header navbar navbar-default navbar-fixed-top">
+                        <!-- begin container-fluid -->
+                        <div class="container-fluid">
+                                <!-- begin mobile sidebar expand / collapse button -->
+                                <div class="navbar-header">
+                                        <a href="index.html" class="navbar-brand" style="padding: 4px 58px;"><img src="img/big_logo_mecasif.png" alt="SpinalCom" style="height: 42px;" /></a>
+                                </div>
+                                <!-- end mobile sidebar expand / collapse button -->
+                        </div>
+                        <!-- end container-fluid -->
+                </div>
+                <!-- end #header -->
+                
+                <!-- ================== PAGE MENU ================== -->
+                <!-- begin #sidebar -->
+                <div id="sidebar" class="sidebar" style="padding-top: 54px;">
+                        <!-- begin sidebar scrollbar -->
+                        <div data-scrollbar="true" data-height="100%">
+                                <!-- begin sidebar nav -->
+                                <ul class="nav">
+                                        <li class="has-sub active">
+                                                <a href="javascript:;">
+                                            <b class="caret pull-right"></b>
+                                            MECASIF
+                                        </a>
+                                                <ul class="sub-menu" style="display: block;">
+                                                    <li><a href="index.html#objectifs">Objectifs</a></li>
+                                                    <li><a href="index.html#consortium">Consortium</a></li>
+                                                    <li><a href="index.html#financeurs">Financeurs</a></li>
+                                                    <li><a href="index.html#articles">Articles</a></li>
+                                                    <li><a href="index.html#workpackages">Work Packages</a></li>
+                                                    <li><a href="index.html#news">News</a></li>
+                                                </ul>
+                                        </li>                                          
+                                        
+                                        <li class="has-sub">
+                                                <a href="index.html#demos">
+                                            <b class="caret pull-right"></b>
+                                            Démos
+                                        </a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="demo.html#CastemTrussPGDDemoItem">Castem PGD : Truss</a></li>
+                                                    <li><a href="demo.html#Castem2DPGDDemoItem">Castem PGD : 2D</a></li>
+                                                </ul>
+                                        </li>                                           
+                                </ul>
+                                <!-- end sidebar nav -->
+                        </div>
+                        <!-- end sidebar scrollbar -->
+                </div>
+                <div class="sidebar-bg"></div>
+                <!-- end #sidebar -->
+                
+                
+                <!-- begin scroll to top btn -->
+                <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                <!-- end scroll to top btn -->
+                
+               
+                
+        </div>
+        <!-- end page container -->
+        
+        <!-- begin #footer -->
+        <div id="footer" class="footer text-center">
+            <div class="footer-brand">
+                MECASIF Website
+            </div>
+            <p>
+                &copy; Copyright SpinalCom 2016 <br />
+                Created by <a href="http://spinalcom.com" target="_blank">SpinalCom</a> team. <b>is-sim</b> is a trademark of SpinalCom.
+            </p>
+            <p class="social-list">
+                <a href="http://twitter.com/spinalcom" target="_blank"><i class="fa fa-twitter fa-fw"></i></a>
+                <a href="http://facebook.com/spinalcom" target="_blank"><i class="fa fa-facebook fa-fw"></i></a>
+                <a href="http://linkedin.com/company/spinalcom" target="_blank"><i class="fa fa-linkedin fa-fw"></i></a>
+            </p>
+        </div>
+        <!-- end #footer -->         
+        
+
+        <!-- ================== SPINALCORE API ================== -->
+        <script type="text/javascript" src="libJS/spinalcore.browser.js"></script>
+        
+        <!-- ================== BOOTSTRAP TEMPLATE VIEWS ================== -->
+        <script type="text/javascript" src="bootstrap-template/gen/unit-views.js"></script>        
+        <script type="text/javascript" src="bootstrap-template/gen/framework-views.js"></script>
+        <script type="text/javascript" src="bootstrap-template/gen/dom-helper.js"></script>        
+        
+        <!-- ================== MODULES ================== -->
+        <script type="text/javascript" src="models-manager/is-sim/is-sim.models.js"></script>  
+        <script type="text/javascript" src="models-manager/gen/castem.js"></script>        
+        
+        <!-- ================== DEMOS ================== -->
+        <script type="text/javascript" src="models-manager/demos.js"></script>
+        
+        <!-- ================== JS FUNCTION ================== -->
+        <script type="text/javascript" src="models-manager/gen/site.js" onload="launch_index()"></script>        
+        
+        <!-- ================== JS for BOOTSTRAP ================== -->
+        <script src="coloradmin-assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+        <script src="coloradmin-assets/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+        <script src="coloradmin-assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="coloradmin-assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <!--[if lt IE 9]>
+                <script src="../coloradmin-assets/crossbrowserjs/html5shiv.js"></script>
+                <script src="../coloradmin-assets/crossbrowserjs/respond.min.js"></script>
+                <script src="../coloradmin-assets/crossbrowserjs/excanvas.min.js"></script>
+        <![endif]-->
+        <script src="coloradmin-assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="coloradmin-assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <script src="coloradmin-assets/js/apps.min.js"></script>
+
+        <script>
+                $(document).ready(function() {
+                        App.init();
+                });
+                
+                // scroll animation function to anchors
+                $("a[href^='index.html#']").on('click', function(e) {
+                    e.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                        }, 300, function(){
+                        window.location.hash = hash;
+                        });
+                    });
+        </script>      
+        <!--  google analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-67795124-1', 'auto');
+            ga('send', 'pageview');
+        </script> 
+      
+</body> 
+</html>
+

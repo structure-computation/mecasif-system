@@ -1010,6 +1010,7 @@ FIN ; \n\
         truss[ "_lambda" ] << l_p;
     }
         
+    add_message( mp, ET_Info, "Psi/lambda storage finished.");    
 //     mp[ "_output[0]" ][ "k" ][ "k1" ][ "val" ] = 1;
 //     mp[ "_output[0]" ][ "k" ][ "k2" ][ "val" ] = 1;
 //     mp[ "_output[0]" ][ "k" ][ "k3" ][ "val" ] = 1;

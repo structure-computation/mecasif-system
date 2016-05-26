@@ -17,21 +17,21 @@ int main( int argc, char **argv  )
     sc->load_type( "CastemTrussPGDItem" );
     sc->load_type( "Castem2DPGDItem" );
     ModelPointer mp = sc->load_ptr(model_id);
-    qDebug() << "###############   launch Castem ###############" ;
+    qDebug() << "############### launch Castem ###############" ;
     
     if (mp.type() == "CastemTrussPGDItem"){
         CastemTrussUpdater updater;
         updater.sc = sc;
-        updater.exec( mp );
+        updater.run( mp );
         mp.flush();
     }
     else if (mp.type() == "Castem2DPGDItem"){
         Castem2DUpdater updater;
         updater.sc = sc;
-        updater.exec( mp );
+        updater.run( mp );
         mp.flush();
     }    
-    qDebug() << "###############   finish Castem ###############" ;
+    qDebug() << "############### finish Castem ###############" ;
 }
     
 

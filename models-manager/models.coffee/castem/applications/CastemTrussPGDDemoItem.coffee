@@ -7,11 +7,10 @@ class CastemTrussPGDDemoItem extends TreeItem
         @add_attr
             edited_by : 'LMT'
             stamp: "img/CastemTrussPGD.png"
-            txt: "demo truss PGD LMT"
+            txt: "Castem PGD : Truss (LMT)"
             demo_app : "CastemTrussPGDDemoItem"
             directory : "CastemTrussPGD"
             video_link : undefined
-            tutorial_link : undefined
             publication_link : "http://resources.is-sim.com/Louf_Champaney_FINEL.pdf"
 
     associated_application: ()->
@@ -21,9 +20,14 @@ class CastemTrussPGDDemoItem extends TreeItem
     
     run_demo : (app_data)->
         app = new TreeAppApplication
-        a = app.add_item_depending_selected_tree app_data, CastemTrussPGDItem
+        a = app.add_item_depending_selected_tree app_data, CastemTrussPGDItem, (object) =>
+            app_data.watch_item object._children[0]
+            app_data.watch_item object._children[0]._children[0]
+            app_data.watch_item object._children[0]._children[1]
+            app_data.watch_item object._children[0]._children[2]
         
-            
-    onclick_function: ()->
-        window.location = "softpage.html#" +  "CastemTrussPGDDemoItem" #+ @demo_app
-                
+    read_me: ( c ) ->
+        c.panel "col2", "rm", "Read me", "readme"
+        c.heading "rm", 5, "Application"
+        c.heading "rm", 5, "Interface"
+        c.heading "rm", 5, "Usage"

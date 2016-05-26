@@ -1,8 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-12-02T14:11:46
-#
-#-------------------------------------------------
 
 QT      += core gui
 QT      += network
@@ -10,8 +5,6 @@ QT      += network
 CONFIG += warn_off
 TARGET = ../run
 TEMPLATE = app
-
-LIBS += -ltiff
 
 SOURCES += main.cpp\
     SpinalCoreQT/Com/ClientLoop.cpp \
@@ -30,13 +23,6 @@ SOURCES += main.cpp\
     SpinalCoreQT/Model/Val.cpp \
     SpinalCoreQT/Sys/BinRd.cpp \
     SpinalCoreQT/ModelPointer.cpp \
-    SpinalCoreQT/Updater.cpp \
-    FieldSetUpdater.cpp \
-    FileUpdater.cpp \
-    ImgUpdater.cpp \
-    MakeImgRawVolume.cpp \
-    ServerAssistedVisualizationUpdater.cpp \
-    TiffFileUpdater.cpp \
 
 HEADERS  += SpinalCoreQT/Com/ClientLoop.h \
     SpinalCoreQT/Com/ClientLoop_parser.h \
@@ -58,22 +44,4 @@ HEADERS  += SpinalCoreQT/Com/ClientLoop.h \
     SpinalCoreQT/Sys/BinRd.h \
     SpinalCoreQT/Sys/S.h \
     SpinalCoreQT/ModelPointer.h \
-    SpinalCoreQT/Updater.h \
-    FieldSetUpdater.h \
-    FileUpdater.h \
-    ImgInterp.h \
-    ImgUpdater.h \
-    JobList.h \
-    Launcher.h \
-    MakeImgRawVolume.h \
-    ServerAssistedVisualizationUpdater.h \
-    TiffFileUpdater.h \
-    UnvReader2DLauncher.h \
 
-INCLUDEPATH += \
-    LMT/include
-
-OTHER_FILES += \
-    README.txt \
-    organ.build \
-    organ.clean
