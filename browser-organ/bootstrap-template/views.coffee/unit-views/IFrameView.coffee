@@ -72,7 +72,7 @@ class IFrameView extends Process
             txt: @site_item.title.get()
                 
         if @site_item.format.get() == "page-height"
-            @window_height = document.body.clientHeight - 180
+            @window_height = document.body.clientHeight - 130
             @panel_content = new_dom_element
                 id: @site_item.id.get()
                 parentNode: @panel_inverse

@@ -18,11 +18,12 @@ class SiteContentView extends Process
     # create the unit views inside the part depending on the selected item in the site tree    
     #--------------------------------------------------------------------------------------------------------------
     create_unit_view: (item) ->
-        if item instanceof TitleModel
-            new TitleView item, @content   
         if item instanceof RowModel
             new RowView item, @content        
         
+        if item instanceof TitleModel
+            row = document.getElementById item.row_id
+            new TitleView item, row           
         if item instanceof ColModel
             row = document.getElementById item.row_id
             new ColView item, row

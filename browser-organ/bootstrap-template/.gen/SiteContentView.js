@@ -29,11 +29,12 @@ SiteContentView = (function(_super) {
 
   SiteContentView.prototype.create_unit_view = function(item) {
     var col, panel, row;
-    if (item instanceof TitleModel) {
-      new TitleView(item, this.content);
-    }
     if (item instanceof RowModel) {
       new RowView(item, this.content);
+    }
+    if (item instanceof TitleModel) {
+      row = document.getElementById(item.row_id);
+      new TitleView(item, row);
     }
     if (item instanceof ColModel) {
       row = document.getElementById(item.row_id);

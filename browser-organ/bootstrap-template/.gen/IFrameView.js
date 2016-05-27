@@ -55,7 +55,7 @@ IFrameView = (function(_super) {
       txt: this.site_item.title.get()
     });
     if (this.site_item.format.get() === "page-height") {
-      this.window_height = document.body.clientHeight - 180;
+      this.window_height = document.body.clientHeight - 130;
       this.panel_content = new_dom_element({
         id: this.site_item.id.get(),
         parentNode: this.panel_inverse,

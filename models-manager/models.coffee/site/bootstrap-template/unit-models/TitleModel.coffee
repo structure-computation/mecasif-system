@@ -11,6 +11,6 @@ class TitleModel extends UnitModel
         @_name._set if params.name? then params.name else "unit_site_text" 
         
         @add_attr
-#             num : if params.num? then params.num else 0
+            row_id : if params.row_id? then params.row_id else undefined
             title : if params.title? then params.title else ""
-            balise     : if params.balise? then params.balise else "paragraph_balise"
+            balise : if params.balise? then params.balise else "paragraph_balise"
