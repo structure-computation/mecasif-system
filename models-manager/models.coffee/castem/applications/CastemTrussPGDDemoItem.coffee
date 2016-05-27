@@ -57,6 +57,7 @@ class CastemTrussPGDDemoItem extends TreeItem
         "        
         c.heading "rm", 5, "Usage"
         c.paragraph "rm", "
+        IMPORTANT: You need Cast3m on you computer to run the algorithm: see the <a href=http://www-cast3m.cea.fr/ target=_blank >Cast3m site</a>.<br><br>
         At the launch of this demo, you should see in the 3D panel the original structure: the beams represented by white lines and the points represented by green circles.<br>
         The application usage is composed of three steps: defining the parameters, running the Castem algorithm and visualizing the results in the 3D window. 
         <ol>

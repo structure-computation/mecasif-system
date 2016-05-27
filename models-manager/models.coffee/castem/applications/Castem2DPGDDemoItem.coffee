@@ -53,6 +53,7 @@ class Castem2DPGDDemoItem extends TreeItem
         "        
         c.heading "rm", 5, "Usage"
         c.paragraph "rm", "
+        IMPORTANT: You need Cast3m on you computer to run the algorithm: see the <a href=http://www-cast3m.cea.fr/ target=_blank >Cast3m site</a>.<br><br>
         At the launch of this demo, you shouldn't see anything the 3D window: as the mesh is built in the Castem algorithm, you have to run it once to display the structure.<br>
         The application usage is composed of three steps: defining the parameters, running the Castem algorithm and visualizing the results in the 3D window. 
         <ol>
