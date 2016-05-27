@@ -15,8 +15,9 @@ class SiteContentModel extends Model
     # add content in the @page_content container
     #--------------------------------------------------------------------------------------------------------------  
         
-    title: ( title, balise ) ->
+    title: ( row_id, title, balise ) ->
         _title = new TitleModel
+                row_id : row_id
                 title : title
         @add_content _title     
         

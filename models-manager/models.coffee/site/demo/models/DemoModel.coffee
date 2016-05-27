@@ -14,9 +14,9 @@ class DemoModel extends SiteContentModel
                 @demo = demo
                 break
         
-        @title "Demo : " + @demo.txt.get()
         
         @row "1"
+        @title "1", "<center>Demo : " + @demo.txt.get()
         @col "1", "col1", 12
         @col "1", "col2", 6
         @col "1", "col3", 6
