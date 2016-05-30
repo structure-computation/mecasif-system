@@ -173,10 +173,12 @@ class IndexModel extends SiteContentModel
         @panel "col1", "art", "Articles", "articles"
         papers_href_lst = [ "http://resources.is-sim.com/2015-LS-DYNA-template-paper_KAYVANTASH.pdf",
                       "http://resources.is-sim.com/Ryckelynck.pdf",
-                      "http://resources.is-sim.com/Workshop_PGD_LMT.pdf" ]
+                      "http://resources.is-sim.com/Workshop_PGD_LMT.pdf",
+                      "http://resources.is-sim.com/F1.1a-Rapport_bibliographique.v1.pdf"]
         papers_caption_lst = [ "Model Reduction Techniques for LS-DYNA ALE and Crash Applications <br><br><b>Kambiz Kayvantash</b>",
                             "Hyper-reduction framework for model calibration in heterogeneous plasticity <br><br><b>David Ryckelynck</b>",
-                            "PGD-Reduced Models for several parametrized nonlinear problems <br><br><b>David Néron</b>" ]
+                            "PGD-Reduced Models for several parametrized nonlinear problems <br><br><b>David Néron</b>",
+                            "Revue critique des méthodes applicables aux problèmes hyperboliques <br><br><b>D.Ryckelinck, L.Fourment, <br> P.Almeida, L.Blanc, A.Grolet, F.Thouverez, <br>P.-A.Boucard, <br>Y.Maday </b>"]
         papers_icon_lst = []
         for p in papers_href_lst
             papers_icon_lst.push "img/papers.png"
