@@ -134,13 +134,10 @@
         
         <!-- ================== MODULES ================== -->
         <script type="text/javascript" src="models-manager/is-sim/is-sim.models.js"></script>  
-        <script type="text/javascript" src="models-manager/gen/castem.js"></script>        
+        <script type="text/javascript" src="models-manager/gen/models.js"></script>        
         
         <!-- ================== DEMOS ================== -->
-        <script type="text/javascript" src="models-manager/demos.js"></script>
-        
-        <!-- ================== JS FUNCTION ================== -->
-        <script type="text/javascript" src="models-manager/gen/site.js" onload="launch_index()"></script>        
+        <script type="text/javascript" src="models-manager/demos.js"></script>     
         
         <!-- ================== JS for BOOTSTRAP ================== -->
         <script src="coloradmin-assets/plugins/jquery/jquery-1.9.1.min.js"></script>
@@ -159,6 +156,7 @@
         <script>
                 $(document).ready(function() {
                         App.init();
+                        launch_index();
                 });
                 
                 // scroll animation function to anchors

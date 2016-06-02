@@ -1,0 +1,26 @@
+#!/bin/bash
+
+Start() 
+{
+if ps ax | grep -v grep | grep -v grep | grep spinalhub > /dev/null
+then
+    echo "Spinalhub is already running!"
+else
+    echo "Running..."
+    cd ./nerve-center; 
+    make & 
+    sleep 1;
+    cd ../organs-manager; 
+    ./run & 
+fi
+}
+
+Stop()
+{
+echo "Stoping..."
+killall -9 spinalhub;
+}
+
+if [[ $1 == "stop" ]]; then Stop
+else Start
+fi
