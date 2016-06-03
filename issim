@@ -2,7 +2,7 @@
 
 Start() 
 {
-if ps ax | grep -v grep | grep -v grep | grep spinalhub > /dev/null
+if ps ax | grep -v grep | grep -v grep | grep "./spinalhub -b ../browser-organ/ -p 8888 -P 8889 -q 8890" > /dev/null
 then
     echo "Spinalhub is already running!"
 else
@@ -18,9 +18,10 @@ fi
 Stop()
 {
 echo "Stoping..."
-killall -9 spinalhub;
+pkill -f "./spinalhub -b ../browser-organ/ -p 8888 -P 8889 -q 8890";
 }
 
 if [[ $1 == "stop" ]]; then Stop
-else Start
+else 
+    Start
 fi
