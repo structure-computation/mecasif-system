@@ -8,10 +8,12 @@ Start_OrgansManager()
     if ps ax | grep -v grep | grep -v grep | grep "$HUB" > /dev/null
     then
         cd ../organs-manager; 
-        ./run &
+        ./run 
+        sleep 3;
+        Start_OrgansManager &        
     else
         sleep 5;
-        Start_OrgansManager
+        Start_OrgansManager &
     fi
 }
 
@@ -25,7 +27,7 @@ Start()
         echo "Running..."
         cd ./nerve-center; 
         make & 
-        Start_OrgansManager
+        Start_OrgansManager &
     fi
 }
 
