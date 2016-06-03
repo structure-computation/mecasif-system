@@ -10,7 +10,7 @@ Start_OrgansManager()
         cd ../organs-manager; 
         ./run &
     else
-        sleep 1;
+        sleep 5;
         Start_OrgansManager
     fi
 }
