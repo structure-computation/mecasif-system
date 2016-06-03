@@ -1,27 +1,42 @@
 #!/bin/bash
 
+HUB="./spinalhub -b ../browser-organ/ -p 8888 -P 8889 -q 8890"
+
+
+Start_OrgansManager()
+{
+    if ps ax | grep -v grep | grep -v grep | grep "$HUB" > /dev/null
+    then
+        cd ../organs-manager; 
+        ./run &
+    else
+        sleep 1;
+        Start_OrgansManager
+    fi
+}
+
+
 Start() 
 {
-if ps ax | grep -v grep | grep -v grep | grep "./spinalhub -b ../browser-organ/ -p 8888 -P 8889 -q 8890" > /dev/null
-then
-    echo "Spinalhub is already running!"
-else
-    echo "Running..."
-    cd ./nerve-center; 
-    make & 
-    sleep 1;
-    cd ../organs-manager; 
-    ./run & 
-fi
+    if ps ax | grep -v grep | grep -v grep | grep "$HUB" > /dev/null
+    then
+        echo "Spinalhub is already running!"
+    else
+        echo "Running..."
+        cd ./nerve-center; 
+        make & 
+        Start_OrgansManager
+    fi
 }
+
 
 Stop()
 {
-echo "Stoping..."
-pkill -f "./spinalhub -b ../browser-organ/ -p 8888 -P 8889 -q 8890";
+    echo "Stoping..."
+    pkill -f "$HUB"
 }
 
+
 if [[ $1 == "stop" ]]; then Stop
-else 
-    Start
+else Start
 fi
