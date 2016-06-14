@@ -6,7 +6,7 @@
 <head>
         <meta charset="utf-8" />   
         <title>MECASIF</title> 
-        <meta name="MECASIF" content="MECASIF HomePage">
+        <meta name="MECASIF" content="MECASIF Demo">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <link rel="icon" type="image/png" href="img/favicone.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>   
@@ -32,29 +32,15 @@
         
         <!-- begin #page-container -->
         <div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed page-with-top-menu" style="padding-top: 0px;">
-                
+        
                 <!-- begin mobile sidebar expand / collapse button -->
                 <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                         <span class="icon-bar navbar-default" style="background-color: #242a30"></span>
                         <span class="icon-bar navbar-default" style="background-color: #242a30"></span>
                         <span class="icon-bar navbar-default" style="background-color: #242a30"></span>
                 </button>
-                <!-- end mobile sidebar expand / collapse button -->
-
-                <!-- ================== PAGE HEADER ================== -->
-<!--                 <div id="header" class="header navbar navbar-default navbar-fixed-top"> -->
-                        <!-- begin container-fluid -->
-<!--                         <div class="container-fluid"> -->
-                                <!-- begin mobile sidebar expand / collapse button -->
-<!--                                 <div class="navbar-header"> -->
-<!--                                         <a href="index.html" class="navbar-brand" style="padding: 4px 58px;"><img src="img/big_logo_mecasif.png" alt="SpinalCom" style="height: 42px;" /></a> -->
-<!--                                 </div> -->
-                                <!-- end mobile sidebar expand / collapse button -->
-<!--                         </div> -->
-                        <!-- end container-fluid -->
-<!--                 </div> -->
-                <!-- end #header -->
-                
+                <!-- end mobile sidebar expand / collapse button -->        
+                        
                 <!-- ================== PAGE MENU ================== -->
                 <!-- begin #sidebar -->
                 <div id="sidebar" class="sidebar" style="padding-top: 0px;">
@@ -63,12 +49,12 @@
                                 <!-- begin sidebar nav -->
                                 <ul class="nav">
                                         <li><a href="index.html" class="navbar-brand" style="padding: 4px 58px;"><img src="img/big_logo_mecasif_inv.png" alt="SpinalCom" style="height: 42px;" /></a></li>
-                                        <li class="has-sub active">
-                                                <a href="javascript:;">
+                                        <li class="has-sub">
+                                                <a href="index.html">
                                             <b class="caret pull-right"></b>
                                             MECASIF
                                         </a>
-                                                <ul class="sub-menu" style="display: block;">
+                                                <ul class="sub-menu">
                                                     <li><a href="index.html#objectifs">Objectifs</a></li>
                                                     <li><a href="index.html#consortium">Consortium</a></li>
                                                     <li><a href="index.html#financeurs">Financeurs</a></li>
@@ -78,20 +64,20 @@
                                                 </ul>
                                         </li>                                          
                                         
-                                        <li class="has-sub">
-                                                <a href="index.html#demos">
+                                        <li class="has-sub active">
+                                                <a href="javascript:;">
                                             <b class="caret pull-right"></b>
                                             Démos
                                         </a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="demo.html#CastemTrussPGDDemoItem">Castem PGD : Truss</a></li>
-                                                    <li><a href="demo.html#Castem2DPGDDemoItem">Castem PGD : 2D</a></li>
+                                                    <li><a href="javascript:location.replace('demo.html#CastemTrussPGDDemoItem');location.reload();">Castem PGD : Truss</a></li>
+                                                    <li><a href="javascript:location.replace('demo.html#Castem2DPGDDemoItem');location.reload();">Castem PGD : 2D</a></li>
                                                 </ul>
                                         </li>                                           
                                 </ul>
-                                <!-- end sidebar nav -->
+                                <!-- end sidebar nav -->   
                         </div>
-                        <!-- end sidebar scrollbar -->
+                        <!-- end sidebar scrollbar --> 
                 </div>
                 <div class="sidebar-bg"></div>
                 <!-- end #sidebar -->
@@ -100,9 +86,6 @@
                 <!-- begin scroll to top btn -->
                 <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
                 <!-- end scroll to top btn -->
-                
-               
-                
         </div>
         <!-- end page container -->
         
@@ -121,9 +104,9 @@
                 <a href="http://linkedin.com/company/spinalcom" target="_blank"><i class="fa fa-linkedin fa-fw"></i></a>
             </p>
         </div>
-        <!-- end #footer -->         
-        
+        <!-- end #footer -->        
 
+        
         <!-- ================== SPINALCORE API ================== -->
         <script type="text/javascript" src="libJS/spinalcore.browser.js"></script>
         
@@ -134,10 +117,8 @@
         
         <!-- ================== MODULES ================== -->
         <script type="text/javascript" src="models-manager/is-sim/is-sim.models.js"></script>  
-        <script type="text/javascript" src="models-manager/gen/models.js"></script>        
-        
-        <!-- ================== DEMOS ================== -->
-        <script type="text/javascript" src="models-manager/demos.js"></script>     
+        <script type="text/javascript" src="models-manager/is-sim.config.js"></script>
+        <script> for (var file of MODELS){ document.write("<scr"+"ipt type=\"text/javascript\" src=\"models-manager/models/" + file + ".js\"></scr"+"ipt>"); } </script>
         
         <!-- ================== JS for BOOTSTRAP ================== -->
         <script src="coloradmin-assets/plugins/jquery/jquery-1.9.1.min.js"></script>
@@ -156,11 +137,11 @@
         <script>
                 $(document).ready(function() {
                         App.init();
-                        launch_index();
+                        launch_demo();
                 });
                 
                 // scroll animation function to anchors
-                $("a[href^='index.html#']").on('click', function(e) {
+                $("a[href^='#']").on('click', function(e) {
                     e.preventDefault();
                     var hash = this.hash;
                     $('html, body').animate({

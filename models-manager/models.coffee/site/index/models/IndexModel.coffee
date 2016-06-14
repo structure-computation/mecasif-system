@@ -191,7 +191,8 @@ class IndexModel extends SiteContentModel
         captions_lst = []
         href_lst = []
         for demo in DEMOS
-            icons_lst.push demo.stamp
-            captions_lst.push demo.txt
-            href_lst.push "demo.html#" + demo.demo_app           
+            demo_model = new window[demo]()
+            icons_lst.push demo_model.stamp
+            captions_lst.push demo_model.txt
+            href_lst.push "demo.html#" + demo_model.demo_app           
         @gallery "dem", icons_lst, captions_lst, href_lst, 4

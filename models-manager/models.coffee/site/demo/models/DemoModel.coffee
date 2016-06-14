@@ -10,8 +10,9 @@ class DemoModel extends SiteContentModel
 
         hash = document.URL.substr( document.URL.indexOf("#") + 1 )
         for demo in DEMOS
-            if hash.indexOf( demo.demo_app.get() ) != -1
-                @demo = demo
+            demo_model = new window[demo]()
+            if hash.indexOf( demo_model.demo_app.get() ) != -1
+                @demo = demo_model
                 break
         
         

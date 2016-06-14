@@ -2,8 +2,9 @@ class TreeAppApplication_CastemTruss extends TreeAppApplication
     constructor: ->
         super()
         
-        @name = 'Castem '
-        @powered_with    = 'LMT'
+        @name = 'Castem PGD Truss'
+        @powered_with    = 'LMT Cachan'
+        @description = 'Example of a PGD computation with Cast3m on a simple truss model.'
 
         _ina = ( app ) =>
             app.data.focus.get() != app.selected_canvas_inst()?[ 0 ]?.cm.view_id

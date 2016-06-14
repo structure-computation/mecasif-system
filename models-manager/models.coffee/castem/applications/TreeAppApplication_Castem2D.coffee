@@ -2,8 +2,9 @@ class TreeAppApplication_Castem2D extends TreeAppApplication
     constructor: ->
         super()
         
-        @name = 'Castem '
-        @powered_with    = 'LMT'
+        @name = 'Castem PGD 2D'
+        @powered_with    = 'LMT Cachan'
+        @description = 'Example of a PGD computation with Cast3m on a 2D glued assembly model.'
 
         _ina = ( app ) =>
             app.data.focus.get() != app.selected_canvas_inst()?[ 0 ]?.cm.view_id
