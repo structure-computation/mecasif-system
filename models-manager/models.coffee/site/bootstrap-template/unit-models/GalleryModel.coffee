@@ -13,3 +13,4 @@ class GalleryModel extends UnitModel
             lst_href: if params.lst_href? then params.lst_href else []
             panel_id: if params.panel_id? then params.panel_id else "" 
             col : if params.col? then params.col else 3
+            height : if params.height? then params.height else "200px"

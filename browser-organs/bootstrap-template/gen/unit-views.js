@@ -128,7 +128,8 @@ GalleryView = (function(_super) {
         this.a = new_dom_element({
           nodeName: "a",
           parentNode: this.col,
-          href: this.site_item.lst_href[i]
+          href: this.site_item.lst_href[i],
+          target: "_blank"
         });
       } else {
         this.a = new_dom_element({
@@ -147,7 +148,10 @@ GalleryView = (function(_super) {
       this.i = new_dom_element({
         nodeName: "img",
         parentNode: this.image_inner,
-        src: this.site_item.lst[i]
+        src: this.site_item.lst[i],
+        style: {
+          height: this.site_item.height.get()
+        }
       });
       if (this.site_item.lst_captions[i] != null) {
         this.t = new_dom_element({

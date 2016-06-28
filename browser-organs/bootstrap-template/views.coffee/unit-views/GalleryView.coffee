@@ -83,6 +83,7 @@ class GalleryView extends Process
                     nodeName: "a"
                     parentNode: @col
                     href: @site_item.lst_href[i]
+                    target: "_blank"
             else 
                 @a = new_dom_element
                     nodeName: "a"
@@ -100,6 +101,8 @@ class GalleryView extends Process
                 nodeName: "img"
                 parentNode: @image_inner
                 src: @site_item.lst[i]
+                style:
+                    height: @site_item.height.get()
                     
             if @site_item.lst_captions[i]?
                 @t = new_dom_element

@@ -52,7 +52,7 @@ class IndexModel extends SiteContentModel
         <li>La <b>non­localité des perturbations</b> dûes aux phénomènes propagatifs qui sont donc plus difficiles à capter avec un modèle réduit.</li></ul>
         En plus de l'intégration de ces nouvelles méthodes dans un outil à portée industrielle, ce projet vise aussi à fournir :
         <ul><li>Des <b>critères de qualité</b> relatifs à un modèle réduit (prédictivité, robustesse, représentativité, domaine d'application, maîtrise des incertitudes)</li>
-        Des méthodes permettant de choisir une <b>famille de modèles réduits</b> répondant à un compromis entre le poids d'un modèle (finesse) et le nombre de modèles (valides 
+        <li>Des méthodes permettant de choisir une <b>famille de modèles réduits</b> répondant à un compromis entre le poids d'un modèle (finesse) et le nombre de modèles (valides 
         par point de fonctionnement).</li></ul>  
         Chaque domaine ayant son lot de spécificités, les techno­providers développent les outils 
         répondant au besoin en intégrant les nouvelles méthodes issues de la recherche et leurs 
@@ -78,10 +78,33 @@ class IndexModel extends SiteContentModel
 #         dps_logo = "img/logo_dps_2.png"
 #         @gallery "con", [ silkan_logo, snecma_logo, renault_logo, sc_logo, 
 #                          dassault_logo, bertin_logo, esi_logo, scilab_logo,
-#                          lmt_logo, cadlm_logo, armines_logo, dps_logo ]
-        @image "con", "img/consortium_1.png"
-        @image "con", "img/consortium_2.png"
-        @image "con", "img/consortium_3.png"
+#                          lmt_logo, cadlm_logo, armines_logo, dps_logo ], [], [ "http://www.silkan.com", "http://www.safran-aircraft-engines.com/",  ]
+        renault = "img/renault.png"
+        dassault = "img/dassault.png"
+        snecma = "img/snecma.png"
+        fairwind = "img/fairwind.png"
+        silkan = "img/silkan.png"
+        armines = "img/armines.png"
+        ljll = "img/ljll.png"
+        lmt = "img/lmt.png"
+        ltds = "img/ltds.png"
+        inria = "img/inria.png"
+        cadlm = "img/cadlm.png"
+        esi = "img/esi.png"
+        bertin = "img/bertin.png"
+        spinalcom = "img/spinalcom.png"
+        scilab = "img/scilab.png"
+        dps = "img/dps.png"
+        
+        @gallery "con", [ renault, dassault, snecma, fairwind, silkan, armines, ljll, lmt, ltds, inria, cadlm, esi, bertin, spinalcom, scilab, dps ], [], 
+        [ "http://www.renault.fr/", "http://www.dassault-aviation.com/fr/", "http://www.safran-aircraft-engines.com/",
+        "http://fairwind.be/", "http://www.silkan.com", "http://www.armines.net/" , "https://www.ljll.math.upmc.fr/", "http://www.lmt.ens-cachan.fr/",
+        "http://ltds.ec-lyon.fr/", "http://www.inria.fr/", "http://cadlm.com/", "https://www.esi-group.com/fr", "http://www.bertin.fr/", "http://spinalcom.com/",
+        "http://www.scilab.org/fr", "http://www.dps-fr.com/"
+        ], 3, "100px"
+#         @image "con", "img/consortium_1.png"
+#         @image "con", "img/consortium_2.png"
+#         @image "con", "img/consortium_3.png"
 
         @panel "col1", "fin", "Financeurs / Pôle de compétitivité", "financeurs"
 #         essone_logo = "img/logo_ESSONE_2.png"
@@ -182,11 +205,12 @@ class IndexModel extends SiteContentModel
         papers_icon_lst = []
         for p in papers_href_lst
             papers_icon_lst.push "img/papers.png"
-        @gallery "art", papers_icon_lst, papers_caption_lst, papers_href_lst, 4
+        @gallery "art", papers_icon_lst, papers_caption_lst, papers_href_lst, 4, "100px"
         
         
 
         @panel "col2", "dem", "Démos", "demos"
+        @paragraph "dem", "ATTENTION : Les démos ne fonctionnent pas sur Internet Explorer !<br>&nbsp"
         icons_lst = []
         captions_lst = []
         href_lst = []
@@ -195,4 +219,4 @@ class IndexModel extends SiteContentModel
             icons_lst.push demo_model.stamp
             captions_lst.push demo_model.txt
             href_lst.push "demo.html#" + demo_model.demo_app           
-        @gallery "dem", icons_lst, captions_lst, href_lst, 4
+        @gallery "dem", icons_lst, captions_lst, href_lst, 4, "118px"

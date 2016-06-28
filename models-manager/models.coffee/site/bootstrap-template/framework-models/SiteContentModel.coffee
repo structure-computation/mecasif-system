@@ -71,13 +71,14 @@ class SiteContentModel extends Model
                 width: width
         @add_content _image         
     
-    gallery: ( panel_id, lst, lst_captions = [], lst_href = [], col = 3 ) ->
+    gallery: ( panel_id, lst, lst_captions = [], lst_href = [], col = 3, height = "200px" ) ->
         _gallery = new GalleryModel
                 lst : lst
                 panel_id: panel_id
                 lst_captions: lst_captions
                 lst_href: lst_href
                 col: col
+                height: height
         @add_content _gallery   
         
     code: ( panel_id, type, txt ) ->
