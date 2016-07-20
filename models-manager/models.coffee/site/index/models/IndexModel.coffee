@@ -92,14 +92,14 @@ class IndexModel extends SiteContentModel
         cadlm = "img/cadlm.png"
         esi = "img/esi.png"
         bertin = "img/bertin.png"
-        spinalcom = "img/spinalcom.png"
+        sc = "img/sc.png"
         scilab = "img/scilab.png"
         dps = "img/dps.png"
         
-        @gallery "con", [ renault, dassault, snecma, fairwind, silkan, armines, ljll, lmt, ltds, inria, cadlm, esi, bertin, spinalcom, scilab, dps ], [], 
+        @gallery "con", [ renault, dassault, snecma, fairwind, silkan, armines, ljll, lmt, ltds, inria, cadlm, esi, bertin, sc, scilab, dps ], [], 
         [ "http://www.renault.fr/", "http://www.dassault-aviation.com/fr/", "http://www.safran-aircraft-engines.com/",
         "http://fairwind.be/", "http://www.silkan.com", "http://www.armines.net/" , "https://www.ljll.math.upmc.fr/", "http://www.lmt.ens-cachan.fr/",
-        "http://ltds.ec-lyon.fr/", "http://www.inria.fr/", "http://cadlm.com/", "https://www.esi-group.com/fr", "http://www.bertin.fr/", "http://spinalcom.com/",
+        "http://ltds.ec-lyon.fr/", "http://www.inria.fr/", "http://cadlm.com/", "https://www.esi-group.com/fr", "http://www.bertin.fr/", "http://structure-computation.com/",
         "http://www.scilab.org/fr", "http://www.dps-fr.com/"
         ], 3, "100px"
 #         @image "con", "img/consortium_1.png"
